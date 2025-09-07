@@ -50,7 +50,7 @@ def run_inference():
     )
     
     # df_questions = pd.read_json("questions.jsonl", orient="records", encoding="utf-8-sig", lines=True)
-    df_questions = load_dataset("json", data_files="questions.jsonl", split="train").to_pandas()
+    df_questions = load_dataset("Dokkaebi-AI-Research/logickor", split="train").to_pandas()
     
     if not os.path.exists("./generated/" + args.model):
         os.makedirs("./generated/" + args.model)
