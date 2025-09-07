@@ -4,6 +4,7 @@ import os
 import pandas as pd
 
 from templates import PROMPT_STRATEGY
+from datasets import load_dataset
 
 def run_inference():
     # Use aphrodite-engine or vLLM
@@ -48,7 +49,8 @@ def run_inference():
         stop=["<|endoftext|>", "[INST]", "[/INST]", "<|im_end|>", "<|end|>", "<|eot_id|>", "<end_of_turn>", "<eos>"],
     )
     
-    df_questions = pd.read_json("questions.jsonl", orient="records", encoding="utf-8-sig", lines=True)
+    # df_questions = pd.read_json("questions.jsonl", orient="records", encoding="utf-8-sig", lines=True)
+    df_questions = load_dataset("json", data_files="questions.jsonl", split="train").to_pandas()
     
     if not os.path.exists("./generated/" + args.model):
         os.makedirs("./generated/" + args.model)
