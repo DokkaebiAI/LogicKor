@@ -62,6 +62,7 @@ def run_inference():
                 prompts + [{"role": "user", "content": question[0]}],
                 tokenize=False,
                 add_generation_prompt=True,
+                enable_thinking=False
             )
     
         single_turn_questions = df_questions["questions"].map(format_single_turn_question)
@@ -80,6 +81,7 @@ def run_inference():
                 ],
                 tokenize=False,
                 add_generation_prompt=True,
+                enable_thinking=False
             )
     
         multi_turn_questions = df_questions[["questions", "id"]].apply(
