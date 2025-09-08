@@ -175,7 +175,7 @@ def main():
             print(f"이미 평가 완료.. : {file_path}")
             continue
         process_file(client, file_path, output_dir, args.judge_model, args.threads, args)
-        time.sleep(20)  # to handle ratelimit!
+        time.sleep(30)  # to handle ratelimit!
 
 
 if __name__ == "__main__":
