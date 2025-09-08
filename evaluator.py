@@ -144,7 +144,7 @@ def process_file(client, file_path: Path, output_dir: Path, judge_model, threads
     print(f"- 현재 Processing : {file_path}")
     df_model_outputs = pd.read_json(file_path, lines=True)
 
-    output_file = output_dir / file_path.relative_to(args.model_output_dir)
+    output_file = output_dir
     output_file.parent.mkdir(parents=True, exist_ok=True)
 
     with ThreadPoolExecutor(max_workers=threads) as executor:
