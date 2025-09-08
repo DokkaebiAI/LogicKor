@@ -133,7 +133,7 @@ def process_item(client, row, judge_model, output_file):
     row["query_single"] = query_single
     row["query_multi"] = query_multi
     row = row.to_dict()
-
+    print(f"- 출력 위치 : {output_file}")
     with LOCK:
         with output_file.open("a", encoding="utf-8-sig") as f:
             f.write(json.dumps(row, ensure_ascii=False))
@@ -142,10 +142,11 @@ def process_item(client, row, judge_model, output_file):
 
 def process_file(client, file_path: Path, output_dir: Path, judge_model, threads: int, args):
     print(f"- 현재 Processing : {file_path}")
+    output_file_name = file_path.name
     df_model_outputs = pd.read_json(file_path, lines=True)
 
-    output_file = output_dir
-    output_file.parent.mkdir(parents=True, exist_ok=True)
+    output_file = os.path.join(output_dir, output_file_name)
+    os.makedirs(output_dir, exist_ok=True)
 
     with ThreadPoolExecutor(max_workers=threads) as executor:
         for row in df_model_outputs.iterrows():
