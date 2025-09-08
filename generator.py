@@ -45,7 +45,7 @@ def run_inference():
     sampling_params = SamplingParams(
         temperature=0,
         skip_special_tokens=True,
-        max_tokens=args.model_len,
+        max_tokens=8192,
         stop=["<|endoftext|>", "[INST]", "[/INST]", "<|im_end|>", "<|end|>", "<|eot_id|>", "<end_of_turn>", "<eos>"],
     )
     
