@@ -166,7 +166,7 @@ def main():
     output_dir = Path("./evaluated")
 
     # Filter out hidden files
-    json_files = [file for file in input_dir.rglob("*.jsonl") if not is_hidden(file)]
+    json_files = [file for file in input_dir.rglob("default.jsonl") if not is_hidden(file)]
     print(f"Found {len(json_files)} JSON files to process")
 
     for file_path in json_files:
