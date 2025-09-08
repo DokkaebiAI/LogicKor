@@ -133,9 +133,10 @@ def process_item(client, row, judge_model, output_file):
     row["query_single"] = query_single
     row["query_multi"] = query_multi
     row = row.to_dict()
-    print(f"- 출력 위치 : {output_file}")
+    # print(f"- 출력 위치 : {output_file}")
+    # jsonl 파일 생성
     with LOCK:
-        with output_file.open("a", encoding="utf-8-sig") as f:
+        with Path(output_file).open("a", encoding="utf-8-sig") as f:
             f.write(json.dumps(row, ensure_ascii=False))
             f.write("\n")
 
@@ -147,6 +148,9 @@ def process_file(client, file_path: Path, output_dir: Path, judge_model, threads
 
     output_file = os.path.join(output_dir, output_file_name)
     os.makedirs(output_dir, exist_ok=True)
+    # **여기서 먼저 JSONL 파일 생성**
+    with Path(output_file).open("w", encoding="utf-8-sig") as f:
+        pass  # 빈 파일 생성
 
     with ThreadPoolExecutor(max_workers=threads) as executor:
         for row in df_model_outputs.iterrows():
