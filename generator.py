@@ -27,6 +27,7 @@ def run_inference():
         default="yanolja/EEVE-Korean-Instruct-2.8B-v1.0",
     )
     parser.add_argument("-ml", "--model_len", help=" : Maximum Model Length", default=4096, type=int)
+    parser.add_argument("-dt", "--dtype", help=" : Data type for the model", default="bfloat16")
     args = parser.parse_args()
     
     print(f"Args - {args}")
@@ -39,7 +40,8 @@ def run_inference():
         tensor_parallel_size=gpu_counts,
         max_model_len=args.model_len,
         gpu_memory_utilization=0.8,
-        trust_remote_code=True,  # !
+        trust_remote_code=True,
+        dtype=args.dtype,
     )
     
     sampling_params = SamplingParams(
@@ -107,6 +109,6 @@ def run_inference():
             lines=True,
             force_ascii=False,
         )
-# 스크립트가 직접 실행될 때만 run_inference()를 호출
+
 if __name__ == '__main__':
     run_inference()
